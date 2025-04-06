@@ -11,7 +11,8 @@ const nextConfig = {
     unoptimized: true, // Necesario para export estático
   },
   // Asegúrate de que las rutas funcionen en GitHub Pages
-  assetPrefix: '/simpleocean/',
+  assetPrefix: '/simpleocean',
+  trailingSlash: true,
   reactStrictMode: true,
   transpilePackages: ["geist"],
 };

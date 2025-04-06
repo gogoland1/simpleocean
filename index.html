@@ -5,27 +5,125 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Ocean</title>
     <style>
+        :root {
+            --primary-color: #006994;
+            --secondary-color: #00a3d9;
+            --background-color: #f8f9fa;
+            --text-color: #333;
+        }
+        
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+
+        nav {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
             display: flex;
             justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: #e0e0e0;
+        }
+
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        .container {
             text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
         }
-        h1 {
-            color: #333;
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+
+        .feature {
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .feature h2 {
+            color: var(--primary-color);
+            margin-top: 0;
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#biodiversidad">Biodiversidad</a></li>
+            <li><a href="#oceanografia">Oceanografía</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
         <h1>Simple Ocean</h1>
-        <p>Bienvenido a Simple Ocean</p>
+        <p>Explorando los océanos a través de la ciencia y la tecnología</p>
+    </section>
+
+    <div class="content">
+        <div class="features">
+            <div class="feature">
+                <h2>Biodiversidad Marina</h2>
+                <p>Análisis y modelado de la distribución de especies marinas en la bahía de Valparaíso.</p>
+            </div>
+            <div class="feature">
+                <h2>Oceanografía Física</h2>
+                <p>Estudio de las propiedades físicas y dinámicas del océano.</p>
+            </div>
+            <div class="feature">
+                <h2>Análisis de Datos</h2>
+                <p>Procesamiento y visualización de datos oceanográficos utilizando técnicas modernas.</p>
+            </div>
+        </div>
     </div>
 </body>
 </html> 

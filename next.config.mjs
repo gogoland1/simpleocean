@@ -5,16 +5,11 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',  // Necesario para generar archivos estáticos
-  basePath: '/simpleocean', // El nombre de tu repositorio
+  output: 'export',
+  basePath: '/simpleocean',
   images: {
-    unoptimized: true, // Necesario para export estático
-  },
-  // Asegúrate de que las rutas funcionen en GitHub Pages
-  assetPrefix: '/simpleocean',
-  trailingSlash: true,
-  reactStrictMode: true,
-  transpilePackages: ["geist"],
+    unoptimized: true
+  }
 };
 
 export default nextConfig;

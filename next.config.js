@@ -4,8 +4,15 @@
  */
 import "./src/env.js";
 
-/** @type {import("next").NextConfig} */
-const config = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'export',  // Necesario para generar archivos estáticos
+  basePath: '/simpleocean', // El nombre de tu repositorio
+  images: {
+    unoptimized: true, // Necesario para export estático
+  },
+  // Asegúrate de que las rutas funcionen en GitHub Pages
+  assetPrefix: '/simpleocean/',
   reactStrictMode: true,
 
   /**
@@ -20,4 +27,4 @@ const config = {
   transpilePackages: ["geist"],
 };
 
-export default config;
+module.exports = nextConfig;

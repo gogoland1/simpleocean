@@ -1,0 +1,246 @@
+{
+  "stations": [
+    {"id": "E1", "latitude": -33.45, "longitude": -71.23, "depth": 0},
+    {"id": "E2", "latitude": -33.47, "longitude": -71.25, "depth": 5},
+    {"id": "E3", "latitude": -33.49, "longitude": -71.28, "depth": 10},
+    {"id": "E4", "latitude": -33.52, "longitude": -71.30, "depth": 20},
+    {"id": "E5", "latitude": -33.55, "longitude": -71.32, "depth": 0},
+    {"id": "E6", "latitude": -33.58, "longitude": -71.35, "depth": 5},
+    {"id": "E7", "latitude": -33.60, "longitude": -71.37, "depth": 10},
+    {"id": "E8", "latitude": -33.63, "longitude": -71.40, "depth": 20}
+  ],
+  "environmental_variables": [
+    {
+      "station_id": "E1",
+      "temperature": 18.2,
+      "oxygen": 8.1,
+      "ph": 8.08,
+      "salinity": 33.1,
+      "nitrate": 5.2,
+      "phosphate": 0.48,
+      "silicate": 9.8
+    },
+    {
+      "station_id": "E2",
+      "temperature": 16.1,
+      "oxygen": 7.4,
+      "ph": 8.05,
+      "salinity": 33.5,
+      "nitrate": 8.9,
+      "phosphate": 0.73,
+      "silicate": 17.5
+    },
+    {
+      "station_id": "E3",
+      "temperature": 14.5,
+      "oxygen": 6.8,
+      "ph": 8.01,
+      "salinity": 33.9,
+      "nitrate": 13.2,
+      "phosphate": 0.98,
+      "silicate": 24.1
+    },
+    {
+      "station_id": "E4",
+      "temperature": 12.8,
+      "oxygen": 5.3,
+      "ph": 7.98,
+      "salinity": 34.1,
+      "nitrate": 18.7,
+      "phosphate": 1.42,
+      "silicate": 32.8
+    },
+    {
+      "station_id": "E5",
+      "temperature": 18.5,
+      "oxygen": 8.3,
+      "ph": 8.10,
+      "salinity": 33.0,
+      "nitrate": 4.8,
+      "phosphate": 0.45,
+      "silicate": 8.5
+    },
+    {
+      "station_id": "E6",
+      "temperature": 16.8,
+      "oxygen": 7.6,
+      "ph": 8.07,
+      "salinity": 33.4,
+      "nitrate": 7.5,
+      "phosphate": 0.65,
+      "silicate": 15.2
+    },
+    {
+      "station_id": "E7",
+      "temperature": 14.9,
+      "oxygen": 7.0,
+      "ph": 8.02,
+      "salinity": 33.8,
+      "nitrate": 12.4,
+      "phosphate": 0.87,
+      "silicate": 22.7
+    },
+    {
+      "station_id": "E8",
+      "temperature": 13.0,
+      "oxygen": 5.5,
+      "ph": 7.97,
+      "salinity": 34.2,
+      "nitrate": 17.9,
+      "phosphate": 1.35,
+      "silicate": 30.2
+    }
+  ],
+  "species_abundance": [
+    {
+      "station_id": "E1",
+      "Pseudonitzchia": 12350,
+      "Chaetoceros": 9870,
+      "Navicula": 3450,
+      "Thalassiosira": 6820,
+      "Eucampia": 2340,
+      "Biddulphia": 980,
+      "Fragilaria": 1230,
+      "Fragilariopsis": 2870,
+      "Licmophora": 560,
+      "Odontella": 780,
+      "Skeletonema": 8750,
+      "Cocconeis": 920
+    },
+    {
+      "station_id": "E2",
+      "Pseudonitzchia": 15240,
+      "Chaetoceros": 7520,
+      "Navicula": 2980,
+      "Thalassiosira": 5430,
+      "Eucampia": 1870,
+      "Biddulphia": 1250,
+      "Fragilaria": 980,
+      "Fragilariopsis": 3450,
+      "Licmophora": 320,
+      "Odontella": 590,
+      "Skeletonema": 9840,
+      "Cocconeis": 780
+    },
+    {
+      "station_id": "E3",
+      "Pseudonitzchia": 18970,
+      "Chaetoceros": 5430,
+      "Navicula": 1890,
+      "Thalassiosira": 3560,
+      "Eucampia": 1230,
+      "Biddulphia": 870,
+      "Fragilaria": 650,
+      "Fragilariopsis": 2540,
+      "Licmophora": 210,
+      "Odontella": 340,
+      "Skeletonema": 12540,
+      "Cocconeis": 560
+    },
+    {
+      "station_id": "E4",
+      "Pseudonitzchia": 21450,
+      "Chaetoceros": 3210,
+      "Navicula": 980,
+      "Thalassiosira": 1870,
+      "Eucampia": 760,
+      "Biddulphia": 450,
+      "Fragilaria": 320,
+      "Fragilariopsis": 1230,
+      "Licmophora": 120,
+      "Odontella": 180,
+      "Skeletonema": 15670,
+      "Cocconeis": 290
+    },
+    {
+      "station_id": "E5",
+      "Pseudonitzchia": 11780,
+      "Chaetoceros": 10230,
+      "Navicula": 3560,
+      "Thalassiosira": 7120,
+      "Eucampia": 2540,
+      "Biddulphia": 920,
+      "Fragilaria": 1320,
+      "Fragilariopsis": 2650,
+      "Licmophora": 620,
+      "Odontella": 840,
+      "Skeletonema": 8230,
+      "Cocconeis": 1050
+    },
+    {
+      "station_id": "E6",
+      "Pseudonitzchia": 14890,
+      "Chaetoceros": 7980,
+      "Navicula": 3120,
+      "Thalassiosira": 5780,
+      "Eucampia": 2080,
+      "Biddulphia": 1320,
+      "Fragilaria": 1050,
+      "Fragilariopsis": 3210,
+      "Licmophora": 290,
+      "Odontella": 540,
+      "Skeletonema": 9450,
+      "Cocconeis": 840
+    },
+    {
+      "station_id": "E7",
+      "Pseudonitzchia": 18230,
+      "Chaetoceros": 5870,
+      "Navicula": 2040,
+      "Thalassiosira": 3780,
+      "Eucampia": 1450,
+      "Biddulphia": 920,
+      "Fragilaria": 720,
+      "Fragilariopsis": 2340,
+      "Licmophora": 180,
+      "Odontella": 290,
+      "Skeletonema": 12120,
+      "Cocconeis": 620
+    },
+    {
+      "station_id": "E8",
+      "Pseudonitzchia": 20780,
+      "Chaetoceros": 3560,
+      "Navicula": 1120,
+      "Thalassiosira": 2120,
+      "Eucampia": 890,
+      "Biddulphia": 510,
+      "Fragilaria": 380,
+      "Fragilariopsis": 1450,
+      "Licmophora": 90,
+      "Odontella": 150,
+      "Skeletonema": 14890,
+      "Cocconeis": 320
+    }
+  ],
+  "diversity_indices": {
+    "alpha": {
+      "shannon": [2.34, 2.18, 1.98, 1.76, 2.42, 2.25, 2.05, 1.82],
+      "simpson": [0.87, 0.84, 0.81, 0.77, 0.89, 0.86, 0.82, 0.78],
+      "margalef": [3.98, 3.76, 3.41, 2.98, 4.12, 3.89, 3.52, 3.08],
+      "pielou": [0.92, 0.88, 0.84, 0.79, 0.94, 0.90, 0.86, 0.81]
+    },
+    "beta": {
+      "bray_curtis": [
+        [0.00, 0.12, 0.24, 0.38, 0.09, 0.15, 0.26, 0.41],
+        [0.12, 0.00, 0.15, 0.32, 0.18, 0.10, 0.17, 0.35],
+        [0.24, 0.15, 0.00, 0.19, 0.29, 0.20, 0.11, 0.22],
+        [0.38, 0.32, 0.19, 0.00, 0.44, 0.37, 0.24, 0.14],
+        [0.09, 0.18, 0.29, 0.44, 0.00, 0.14, 0.27, 0.42],
+        [0.15, 0.10, 0.20, 0.37, 0.14, 0.00, 0.16, 0.34],
+        [0.26, 0.17, 0.11, 0.24, 0.27, 0.16, 0.00, 0.18],
+        [0.41, 0.35, 0.22, 0.14, 0.42, 0.34, 0.18, 0.00]
+      ],
+      "whittaker": [
+        [0.00, 0.31, 0.48, 0.64, 0.24, 0.35, 0.51, 0.68],
+        [0.31, 0.00, 0.38, 0.57, 0.42, 0.29, 0.42, 0.61],
+        [0.48, 0.38, 0.00, 0.35, 0.52, 0.45, 0.28, 0.42],
+        [0.64, 0.57, 0.35, 0.00, 0.72, 0.62, 0.48, 0.31],
+        [0.24, 0.42, 0.52, 0.72, 0.00, 0.34, 0.54, 0.70],
+        [0.35, 0.29, 0.45, 0.62, 0.34, 0.00, 0.39, 0.58],
+        [0.51, 0.42, 0.28, 0.48, 0.54, 0.39, 0.00, 0.36],
+        [0.68, 0.61, 0.42, 0.31, 0.70, 0.58, 0.36, 0.00]
+      ]
+    }
+  }
+} 

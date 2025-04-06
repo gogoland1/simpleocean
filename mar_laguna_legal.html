@@ -1,0 +1,1749 @@
+# Código HTML completo de "Mar de Lagunas Legales"
+
+Aquí tienes el código HTML completo del juego. Puedes copiarlo, guardarlo en un archivo con extensión `.html` y abrirlo en cualquier navegador web:
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mar de Lagunas Legales - Edición Extendida</title>
+  <style>
+    :root {
+      --water-color: #2389da;
+      --deep-water: #1a6ca4;
+      --sand-color: #e6c288;
+      --rod-color: #8B4513;
+      --line-color: #f5f5f5;
+      --main-color: #00467f;
+      --accent-color: #ff9800;
+      --green-accent: #4caf50;
+      --red-accent: #f44336;
+      --purple-accent: #9c27b0;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f8ff;
+      color: #333;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h1, h2, h3 {
+      color: var(--main-color);
+      text-align: center;
+    }
+    
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    
+    /* PANTALLA DE INICIO */
+    .main-menu {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .game-logo {
+      font-size: 2.5em;
+      font-weight: bold;
+      margin-bottom: 30px;
+      color: var(--main-color);
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .world-selection {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .world-card {
+      width: 200px;
+      height: 250px;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .world-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+    }
+    
+    .world-image {
+      height: 140px;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .world-content {
+      padding: 15px;
+    }
+    
+    .world-title {
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-bottom: 8px;
+      color: var(--main-color);
+    }
+    
+    .world-desc {
+      font-size: 0.9em;
+      color: #666;
+    }
+    
+    .world-difficulty {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: rgba(0,0,0,0.7);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 0.8em;
+    }
+    
+    .nav-button {
+      display: inline-block;
+      padding: 12px 30px;
+      background-color: var(--main-color);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s;
+      text-decoration: none;
+      margin: 10px;
+    }
+    
+    .nav-button:hover {
+      background-color: #003a6b;
+    }
+    
+    .nav-button.secondary {
+      background-color: var(--accent-color);
+    }
+    
+    .nav-button.secondary:hover {
+      background-color: #e68a00;
+    }
+    
+    /* JUEGO DE PESCA */
+    .game-container {
+      display: none;
+    }
+    
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .brain-meter-container {
+      width: 200px;
+      position: relative;
+    }
+    
+    .brain-meter {
+      width: 100%;
+      height: 20px;
+      background-color: #e0e0e0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    .brain-fill {
+      height: 100%;
+      width: 10%;
+      background: linear-gradient(90deg, #4caf50, #8bc34a);
+      transition: width 0.5s;
+    }
+    
+    .brain-icon {
+      position: absolute;
+      top: -25px;
+      left: -10px;
+      font-size: 1.8em;
+    }
+    
+    .brain-level {
+      position: absolute;
+      top: -5px;
+      right: 0;
+      font-weight: bold;
+      color: var(--main-color);
+    }
+    
+    .money-display {
+      background-color: #4caf50;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+    
+    .stats-container {
+      display: flex;
+      justify-content: space-between;
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .stat-item {
+      text-align: center;
+      padding: 5px 10px;
+    }
+    
+    .stat-value {
+      font-weight: bold;
+      font-size: 1.2em;
+      color: var(--main-color);
+    }
+    
+    .game-area {
+      position: relative;
+      height: 350px;
+      background: linear-gradient(to bottom, var(--water-color), var(--deep-water));
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    
+    .ocean-floor {
+      position: absolute;
+      bottom: 0;
+      height: 30px;
+      width: 100%;
+      background-color: var(--sand-color);
+    }
+    
+    .fishing-rod {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      height: 120px;
+      width: 6px;
+      background-color: var(--rod-color);
+      transform-origin: bottom center;
+      z-index: 10;
+    }
+    
+    .fishing-line {
+      position: absolute;
+      top: 120px;
+      left: 3px;
+      width: 2px;
+      height: 100px;
+      background-color: var(--line-color);
+      transform-origin: top center;
+    }
+    
+    .hook {
+      position: absolute;
+      bottom: -10px;
+      left: -5px;
+      width: 10px;
+      height: 10px;
+      border: 2px solid var(--line-color);
+      border-top: none;
+      border-left: none;
+      border-radius: 0 0 50% 0;
+      transform: rotate(45deg);
+    }
+    
+    .fish {
+      position: absolute;
+      width: 40px;
+      height: 20px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      transform-origin: center;
+    }
+    
+    .fish-shape {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .fish-body {
+      position: absolute;
+      width: 30px;
+      height: 15px;
+      background: silver;
+      border-radius: 50% 50% 50% 50%;
+      left: 0;
+      top: 2px;
+    }
+    
+    .fish-tail {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 10px 0 10px 15px;
+      border-color: transparent transparent transparent silver;
+    }
+    
+    .fish-eye {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: black;
+      border-radius: 50%;
+      top: 5px;
+      left: 5px;
+    }
+    
+    .fish-name {
+      position: absolute;
+      bottom: -20px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 10px;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 3px black;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .fish:hover .fish-name {
+      opacity: 1;
+    }
+    
+    .common .fish-body, .common .fish-tail {
+      background-color: silver;
+      border-color: transparent transparent transparent silver;
+    }
+    
+    .uncommon .fish-body, .uncommon .fish-tail {
+      background-color: #4fc3f7;
+      border-color: transparent transparent transparent #4fc3f7;
+    }
+    
+    .rare .fish-body, .rare .fish-tail {
+      background-color: #9c27b0;
+      border-color: transparent transparent transparent #9c27b0;
+    }
+    
+    .legendary .fish-body, .legendary .fish-tail {
+      background-color: #ffd700;
+      border-color: transparent transparent transparent #ffd700;
+    }
+    
+    .void .fish-body, .void .fish-tail {
+      background-color: #f44336;
+      border-color: transparent transparent transparent #f44336;
+    }
+    
+    .inconsistency .fish-body, .inconsistency .fish-tail {
+      background-color: #ff9800;
+      border-color: transparent transparent transparent #ff9800;
+    }
+    
+    .conflict .fish-body, .conflict .fish-tail {
+      background-color: #673ab7;
+      border-color: transparent transparent transparent #673ab7;
+    }
+    
+    .game-message {
+      text-align: center;
+      margin: 10px 0;
+      min-height: 20px;
+      font-weight: bold;
+      color: var(--main-color);
+    }
+    
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .game-button {
+      background-color: var(--main-color);
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s;
+    }
+    
+    .game-button:hover {
+      background-color: #003a6b;
+    }
+    
+    .game-button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    
+    .game-button.secondary {
+      background-color: var(--accent-color);
+    }
+    
+    .game-panels {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .info-panel {
+      flex: 3;
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      min-height: 200px;
+    }
+    
+    .inventory-panel {
+      flex: 1;
+      background-color: white;
+      padding: 15px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    
+    .inventory-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-align: center;
+      color: var(--main-color);
+    }
+    
+    .inventory-item {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      border-radius: 4px;
+      margin-bottom: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .inventory-item:hover {
+      background-color: #f5f5f5;
+    }
+    
+    .inventory-icon {
+      width: 20px;
+      height: 10px;
+      margin-right: 10px;
+      border-radius: 3px;
+    }
+    
+    .article-title {
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: var(--main-color);
+      font-size: 1.2em;
+    }
+    
+    .article-content {
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+    
+    .article-analysis {
+      font-style: italic;
+      color: #666;
+      border-left: 3px solid var(--main-color);
+      padding-left: 15px;
+      margin-top: 10px;
+    }
+    
+    .article-tips {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #e8f5e9;
+      border-radius: 5px;
+      border-left: 3px solid #4caf50;
+    }
+    
+    .article-insight {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #fff8e1;
+      border-radius: 5px;
+      border-left: 3px solid #ffc107;
+    }
+    
+    .bubbles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    
+    .bubble {
+      position: absolute;
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      bottom: -20px;
+      animation: bubble-rise 8s infinite ease-in;
+    }
+    
+    .legend {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      padding: 10px;
+      background-color: rgba(255,255,255,0.8);
+      border-radius: 10px;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.9em;
+    }
+    
+    .legend-color {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+    }
+    
+    /* MERCADO */
+    .market-container {
+      display: none;
+      padding: 20px;
+    }
+    
+    .market-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .market-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+    }
+    
+    .market-tab {
+      padding: 10px 20px;
+      background-color: #f2f2f2;
+      border-radius: 5px 5px 0 0;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .market-tab.active {
+      background-color: var(--main-color);
+      color: white;
+    }
+    
+    .market-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .market-card {
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    
+    .market-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .market-card-img {
+      height: 140px;
+      background-color: #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .market-fish {
+      width: 80px;
+      height: 40px;
+      position: relative;
+    }
+    
+    .market-card-content {
+      padding: 15px;
+    }
+    
+    .market-card-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: var(--main-color);
+    }
+    
+    .market-card-desc {
+      font-size: 0.9em;
+      color: #666;
+      margin-bottom: 15px;
+    }
+    
+    .market-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid #eee;
+    }
+    
+    .market-card-price {
+      font-weight: bold;
+      color: #4caf50;
+    }
+    
+    .market-card-button {
+      padding: 5px 15px;
+      background-color: var(--main-color);
+      color: white;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    .market-card-button:hover {
+      background-color: #003a6b;
+    }
+    
+    /* ANIMACIONES */
+    @keyframes bubble-rise {
+      0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0;
+      }
+      20% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-300px) scale(1.2);
+        opacity: 0;
+      }
+    }
+    
+    @keyframes fish-caught {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-50px) rotate(5deg); }
+      100% { transform: translateY(-150px) rotate(-5deg); opacity: 0; }
+    }
+    
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .world-selection {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .game-panels {
+        flex-direction: column;
+      }
+      
+      .stats-container {
+        flex-direction: column;
+      }
+      
+      .market-content {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- PANTALLA PRINCIPAL -->
+  <div class="container main-menu" id="main-menu">
+    <div class="game-logo">🌊 Mar de Lagunas Legales 🎣</div>
+    <p class="subtitle">Conviértete en el mejor pescador de artículos legales y aprende la Ley de Pesca</p>
+    
+    <h2>Selecciona un Mundo</h2>
+    <div class="world-selection">
+      <div class="world-card" onclick="startGame(1)">
+        <div class="world-image" style="background-image: url('https://placehold.co/200x140/2389da/ffffff?text=Bahía+Principiante');"></div>
+        <div class="world-difficulty">Fácil</div>
+        <div class="world-content">
+          <div class="world-title">Bahía del Principiante</div>
+          <div class="world-desc">Conceptos básicos y definiciones generales de la Ley de Pesca.</div>
+        </div>
+      </div>
+      
+      <div class="world-card" onclick="startGame(2)">
+        <div class="world-image" style="background-image: url('https://placehold.co/200x140/1a6ca4/ffffff?text=Mar+de+Reglamentos');"></div>
+        <div class="world-difficulty">Medio</div>
+        <div class="world-content">
+          <div class="world-title">Mar de Reglamentos</div>
+          <div class="world-desc">Procedimientos y detalles específicos para la pesca artesanal.</div>
+        </div>
+      </div>
+      
+      <div class="world-card" onclick="startGame(3)">
+        <div class="world-image" style="background-image: url('https://placehold.co/200x140/9c27b0/ffffff?text=Arrecife+Interpretaciones');"></div>
+        <div class="world-difficulty">Difícil</div>
+        <div class="world-content">
+          <div class="world-title">Arrecife de Interpretaciones</div>
+          <div class="world-desc">Casos especiales y jurisprudencia relevante.</div>
+        </div>
+      </div>
+      
+      <div class="world-card" onclick="startGame(4)">
+        <div class="world-image" style="background-image: url('https://placehold.co/200x140/673ab7/ffffff?text=Abismo+Vacíos+Legales');"></div>
+        <div class="world-difficulty">Muy Difícil</div>
+        <div class="world-content">
+          <div class="world-title">Abismo de Vacíos Legales</div>
+          <div class="world-desc">Ambigüedades, incongruencias y conflictos de interés.</div>
+        </div>
+      </div>
+    </div>
+    
+    <a href="#" class="nav-button secondary" onclick="showMarket()">Ir al Mercado</a>
+  </div>
+  
+  <!-- JUEGO DE PESCA -->
+  <div class="container game-container" id="game-container">
+    <div class="game-header">
+      <button class="nav-button" onclick="returnToMainMenu()">← Volver</button>
+      
+      <div class="brain-meter-container">
+        <div class="brain-icon">🧠</div>
+        <div class="brain-meter">
+          <div class="brain-fill" id="brain-fill"></div>
+        </div>
+        <div class="brain-level" id="brain-level">Nivel 1</div>
+      </div>
+      
+      <div class="money-display">$<span id="money-amount">0</span></div>
+    </div>
+    
+    <h2 id="world-title">Mundo: Bahía del Principiante</h2>
+    <p class="subtitle" id="world-subtitle">Nivel de dificultad: Fácil</p>
+    
+    <div class="stats-container">
+      <div class="stat-item">
+        <div>Pescados</div>
+        <div class="stat-value" id="caught-count">0/157</div>
+      </div>
+      <div class="stat-item">
+        <div>Comunes</div>
+        <div class="stat-value" id="common-count">0</div>
+      </div>
+      <div class="stat-item">
+        <div>Poco Comunes</div>
+        <div class="stat-value" id="uncommon-count">0</div>
+      </div>
+      <div class="stat-item">
+        <div>Raros</div>
+        <div class="stat-value" id="rare-count">0</div>
+      </div>
+      <div class="stat-item">
+        <div>Legendarios</div>
+        <div class="stat-value" id="legendary-count">0</div>
+      </div>
+      <div class="stat-item">
+        <div>Especiales</div>
+        <div class="stat-value" id="special-count">0</div>
+      </div>
+    </div>
+    
+    <div class="game-message" id="game-message">¡Selecciona un mundo y lanza tu caña para empezar a pescar!</div>
+    
+    <div class="game-area" id="game-area">
+      <div class="bubbles" id="bubbles"></div>
+      <div class="ocean-floor"></div>
+      <div class="fishing-rod" id="fishing-rod">
+        <div class="fishing-line" id="fishing-line">
+          <div class="hook"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="controls">
+      <button class="game-button" id="cast-btn">Lanzar Caña</button>
+      <button class="game-button" id="reel-btn" disabled>Recoger Caña</button>
+      <button class="game-button secondary" id="market-btn" onclick="showMarket()">Ir al Mercado</button>
+    </div>
+    
+    <div class="game-panels">
+      <div class="info-panel" id="info-panel">
+        <div class="article-title">Bienvenido al Mar de Lagunas Legales</div>
+        <div class="article-content">
+          En este juego podrás aprender sobre la Ley General de Pesca y Acuicultura de forma divertida mientras pescas artículos representados como peces de diferentes rarezas.
+        </div>
+        <div class="article-analysis">
+          Los peces más raros representan artículos con mayor complejidad legal o potenciales vacíos en la legislación.
+        </div>
+        <div class="article-tips">
+          <strong>Consejo:</strong> Algunos peces especiales te enseñarán sobre vacíos legales, incongruencias o conflictos de interés, que son muy valiosos para aumentar tu conocimiento.
+        </div>
+      </div>
+      
+      <div class="inventory-panel">
+        <div class="inventory-title">Inventario</div>
+        <div id="inventory-items">
+          <!-- Los items se agregarán dinámicamente -->
+          <div class="inventory-empty">Tu inventario está vacío...</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-color" style="background-color: silver;"></div>
+        <span>Común</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background-color: #4fc3f7;"></div>
+        <span>Poco Común</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background-color: #9c27b0;"></div>
+        <span>Raro</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background-color: #ffd700;"></div>
+        <span>Legendario</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background-color: #f44336;"></div>
+        <span>Vacío Legal</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background-color: #ff9800;"></div>
+        <span>Incongruencia</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color" style="background-color: #673ab7;"></div>
+        <span>Conflicto de Interés</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- MERCADO -->
+  <div class="container market-container" id="market-container">
+    <div class="market-header">
+      <button class="nav-button" onclick="hideMarket()">← Volver</button>
+      <h2>Mercado de Conocimiento Legal</h2>
+      <div class="money-display">$<span id="market-money">0</span></div>
+    </div>
+    
+    <p class="subtitle">Vende tus peces o compra información valiosa para mejorar tus conocimientos</p>
+    
+    <div class="market-tabs">
+      <div class="market-tab active" onclick="switchMarketTab('sell')">Vender</div>
+      <div class="market-tab" onclick="switchMarketTab('buy')">Comprar</div>
+    </div>
+    
+    <div class="market-content" id="market-sell">
+      <!-- Contenido generado dinámicamente -->
+      <div class="market-empty">Aún no tienes peces para vender. ¡Ve a pescar primero!</div>
+    </div>
+    
+    <div class="market-content" id="market-buy" style="display: none;">
+      <div class="market-card">
+        <div class="market-card-img">
+          <div class="market-fish">
+            <div class="fish-body" style="background-color: #673ab7;"></div>
+            <div class="fish-tail" style="border-color: transparent transparent transparent #673ab7;"></div>
+            <div class="fish-eye"></div>
+          </div>
+        </div>
+        <div class="market-card-content">
+          <div class="market-card-title">Mapa de Conflictos de Interés</div>
+          <div class="market-card-desc">Descubre las conexiones entre los redactores de la ley y los beneficiarios de ciertas disposiciones.</div>
+          <div class="market-card-footer">
+            <div class="market-card-price">$500</div>
+            <button class="market-card-button" onclick="buyItem('conflict_map')">Comprar</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="market-card">
+        <div class="market-card-img">
+          <div class="market-fish">
+            <div class="fish-body" style="background-color: #f44336;"></div>
+            <div class="fish-tail" style="border-color: transparent transparent transparent #f44336;"></div>
+            <div class="fish-eye"></div>
+          </div>
+        </div>
+        <div class="market-card-content">
+          <div class="market-card-title">Guía de Vacíos Legales</div>
+          <div class="market-card-desc">Un compendio de los mayores vacíos en la Ley de Pesca y cómo afectan a los pescadores artesanales.</div>
+          <div class="market-card-footer">
+            <div class="market-card-price">$750</div>
+            <button class="market-card-button" onclick="buyItem('void_guide')">Comprar</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="market-card">
+        <div class="market-card-img">
+          <div class="market-fish">
+            <div class="fish-body" style="background-color: #ff9800;"></div>
+            <div class="fish-tail" style="border-color: transparent transparent transparent #ff9800;"></div>
+            <div class="fish-eye"></div>
+          </div>
+        </div>
+        <div class="market-card-content">
+          <div class="market-card-title">Análisis de Incongruencias</div>
+          <div class="market-card-desc">Identifica contradicciones entre diferentes artículos y cómo podrían ser aprovechadas legalmente.</div>
+          <div class="market-card-footer">
+            <div class="market-card-price">$600</div>
+            <button class="market-card-button" onclick="buyItem('inconsistency_analysis')">Comprar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Base de datos de artículos de la ley simplificados y didácticos
+    const articles = [
+      {
+        id: 1,
+        name: "Pez Ámbito",
+        title: "Artículo 1° - Alcance de la Ley",
+        content: "Esta ley regula la preservación de recursos hidrobiológicos, actividades pesqueras extractivas, acuicultura, investigación, y toda la cadena de procesamiento, transporte y comercialización. Aplica en aguas terrestres, playa de mar, aguas interiores, mar territorial, zona económica exclusiva y áreas adyacentes bajo jurisdicción chilena.",
+        analysis: "Define con precisión qué actividades regula la ley y dónde se aplica territorialmente.",
+        tip: "Si tu actividad no está mencionada explícitamente pero está relacionada con recursos marinos, igual podría estar regulada por esta ley.",
+        rarity: "common",
+        world: 1,
+        value: 50,
+        xpValue: 5
+      },
+      {
+        id: 2,
+        name: "Pez Soberanía",
+        title: "Artículo 1°A - Recursos propiedad del Estado",
+        content: "Los recursos hidrobiológicos y sus ecosistemas están sometidos a la soberanía del Estado de Chile, que tiene el derecho y deber de regular su exploración, explotación, conservación y administración.",
+        analysis: "Establece claramente que los recursos marinos son propiedad del Estado chileno, no de particulares.",
+        tip: "Aunque los pescadores pueden tener derechos de uso, no tienen propiedad sobre los recursos en estado natural.",
+        rarity: "common",
+        world: 1,
+        value: 50,
+        xpValue: 5
+      },
+      {
+        id: 3,
+        name: "Pez Sustentable",
+        title: "Artículo 1°B - Objetivo de conservación",
+        content: "El objetivo de la ley es la conservación y uso sustentable de los recursos hidrobiológicos mediante la aplicación del enfoque precautorio y ecosistémico, para salvaguardar los ecosistemas marinos donde existen estos recursos.",
+        analysis: "Establece la sustentabilidad como objetivo central de la ley.",
+        tip: "Puedes invocar este artículo para cuestionar decisiones que vayan en contra de la conservación de los recursos.",
+        rarity: "uncommon",
+        world: 1,
+        value: 100,
+        xpValue: 10
+      },
+      {
+        id: 4,
+        name: "Pez Principios",
+        title: "Artículo 1°C - Principios fundamentales",
+        content: "La ley se basa en 11 principios fundamentales: objetivos a largo plazo, enfoque precautorio, enfoque ecosistémico, administración transparente e inclusiva, recopilación de datos, consideración de impactos, prevención de sobreexplotación, fiscalización efectiva, minimización del descarte, perspectiva de género y coordinación en seguridad.",
+        analysis: "Define los valores y enfoques que deben guiar todas las decisiones relacionadas con la pesca.",
+        insight: "¡Incongruencia! Aunque establece principios progresistas como transparencia y perspectiva de género, muchos artículos posteriores de la ley no desarrollan mecanismos concretos para implementarlos.",
+        rarity: "inconsistency",
+        world: 2,
+        value: 250,
+        xpValue: 25
+      },
+      {
+        id: 5,
+        name: "Pez Género",
+        title: "Artículo 1°D - Equidad de género",
+        content: "Promueve la igualdad de derechos entre hombres y mujeres, estableciendo que ni los representantes de un mismo género pueden superar el 60% del total de integrantes en consejos, comités y órganos de la ley.",
+        analysis: "Busca garantizar diversidad de género en los órganos decisorios pesqueros.",
+        insight: "¡Vacío legal! No establece sanciones por incumplimiento, procedimientos para casos donde no hay suficientes candidatos de un género, ni plazos concretos para implementación, lo que en la práctica dificulta su cumplimiento efectivo.",
+        rarity: "void",
+        world: 3,
+        value: 300,
+        xpValue: 30
+      },
+      {
+        id: 6,
+        name: "Pez Definición",
+        title: "Artículo 2° - Definiciones clave",
+        content: "Define conceptos como 'pesca artesanal' (realizada por personas naturales con embarcaciones de hasta 18 metros de eslora), 'pesca industrial', 'acuicultura', 'procesamiento', entre otros términos fundamentales para aplicar la ley.",
+        analysis: "Las definiciones establecen quién es quién y qué puede hacer cada actor del sector.",
+        tip: "Presta atención a los límites técnicos exactos que definen cada categoría, como la eslora máxima para ser considerado pescador artesanal.",
+        rarity: "common",
+        world: 1,
+        value: 50,
+        xpValue: 5
+      },
+      {
+        id: 7,
+        name: "Pez Estado",
+        title: "Artículo 3° - Recursos controlados por el Estado",
+        content: "Los recursos hidrobiológicos están bajo control del Estado chileno, que tiene derecho a regular y administrarlos conforme a esta ley.",
+        analysis: "Refuerza la soberanía del Estado sobre los recursos marinos.",
+        tip: "Este artículo no menciona límites al poder del Estado ni mecanismos de participación ciudadana en las decisiones regulatorias.",
+        rarity: "uncommon",
+        world: 1,
+        value: 100,
+        xpValue: 10
+      },
+      {
+        id: 8,
+        name: "Pez Ecosistémico",
+        title: "Artículo 4° - Principios de administración",
+        content: "La política pesquera se guía por principios de sustentabilidad, protección del ecosistema, precaución, y decisiones basadas en ciencia.",
+        analysis: "Establece criterios generales para todas las regulaciones pesqueras.",
+        tip: "Estos principios pueden invocarse para cuestionar decisiones que parezcan ir contra la sustentabilidad.",
+        rarity: "uncommon",
+        world: 1,
+        value: 100,
+        xpValue: 10
+      },
+      {
+        id: 9,
+        name: "Pez Precautorio",
+        title: "Artículo 6° - Conservación de recursos",
+        content: "Para conservar recursos, se adopta un enfoque precautorio considerando impactos sobre especies objetivo, no objetivo y el ecosistema marino.",
+        analysis: "Establece una visión más holística para la toma de decisiones.",
+        insight: "Aunque suena bien, no define cómo se aplica este enfoque en la práctica, ni quién decide cuándo aplicarlo. Las autoridades tienen amplia discreción.",
+        rarity: "inconsistency",
+        world: 3,
+        value: 250,
+        xpValue: 25
+      },
+      {
+        id: 10,
+        name: "Pez Lavado",
+        title: "Artículo 8° - Prohibición breve",
+        content: "Se prohíbe lavar redes industriales en áreas reservadas a los artesanales.",
+        analysis: "Una prohibición específica para proteger zonas artesanales.",
+        insight: "¡Vacío legal extremo! Artículo sin definiciones claras, sin mecanismos de control y sin sanciones específicas. Es prácticamente imposible de fiscalizar.",
+        rarity: "void",
+        world: 4,
+        value: 400,
+        xpValue: 40
+      },
+      {
+        id: 11,
+        name: "Pez Cuota",
+        title: "Artículo sexto transitorio - Distribución de cuotas",
+        content: "Establece porcentajes fijos para el reparto de cuotas de pesca entre el sector artesanal e industrial entre 2013 y 2032, con fórmulas específicas por especie.",
+        analysis: "Define por 20 años cómo se reparten las cuotas de captura.",
+        insight: "¡Conflicto de interés! La asignación favorece a operadores establecidos, especialmente grandes industriales que participaron en la redacción de la ley a través de lobby.",
+        rarity: "conflict",
+        world: 4,
+        value: 500,
+        xpValue: 50
+      },
+      {
+        id: 12,
+        name: "Pez Certificación",
+        title: "Artículo 64 E - Certificación de capturas",
+        content: "Establece un sistema obligatorio para certificar los desembarques pesqueros y verificar las capturas realizadas.",
+        analysis: "Busca controlar la pesca ilegal mediante verificación de capturas.",
+        insight: "¡Incongruencia! Mientras exige este sistema a los pescadores artesanales, la ley da plazos diferentes según región y tamaño, permitiendo que algunos operen años sin certificación mientras otros deben cumplir de inmediato.",
+        rarity: "inconsistency",
+        world: 3,
+        value: 250,
+        xpValue: 25
+      },
+      {
+        id: 13,
+        name: "Pez Licencia",
+        title: "Artículo segundo transitorio - Cambio de autorizaciones",
+        content: "Los armadores pueden optar por cambiar sus autorizaciones de pesca por licencias transables de pesca clase A en un plazo de 6 meses.",
+        analysis: "Establece un nuevo sistema de permisos transferibles.",
+        insight: "¡Conflicto de interés! El mecanismo de transición favorece a grandes operadores existentes, perpetuando su control sobre los recursos. La ley fue aprobada con apoyo de senadores después vinculados a casos de corrupción.",
+        rarity: "conflict",
+        world: 4,
+        value: 500,
+        xpValue: 50
+      },
+      {
+        id: 14,
+        name: "Pez Reglamento",
+        title: "Artículo transitorio - Pesca accidental de salmón",
+        content: "Mientras se dicta el reglamento, los pescadores artesanales pueden pescar salmón en forma accidental.",
+        analysis: "Permite la pesca artesanal de salmón bajo ciertas condiciones.",
+        insight: "¡Vacío legal! No define plazos para dictar el reglamento ni especifica qué significa 'accidental', creando una situación de permisividad indefinida y difícil de fiscalizar.",
+        rarity: "void",
+        world: 3,
+        value: 300,
+        xpValue: 30
+      },
+      {
+        id: 15,
+        name: "Pez Comité",
+        title: "Artículo 1° D - Paridad en comités",
+        content: "Los comités de manejo deben tener representación equilibrada de género, con reglas específicas para su conformación.",
+        analysis: "Busca garantizar participación equitativa en órganos decisorios.",
+        tip: "Estas reglas son relativamente recientes (2024), lo que demuestra cómo la ley evoluciona con nuevas prioridades sociales.",
+        rarity: "rare",
+        world: 2,
+        value: 200,
+        xpValue: 20
+      }
+      // Agregar más artículos según sea necesario
+    ];
+    
+    // Variables del juego
+    let currentWorld = 1;
+    let gameActive = false;
+    let isFishing = false;
+    let fishesInWater = [];
+    let caughtArticles = [];
+    let inventory = [];
+    let money = 0;
+    let brainLevel = 1;
+    let brainXP = 0;
+    let brainXPNeeded = 100;
+    let stats = {
+      common: 0,
+      uncommon: 0,
+      rare: 0,
+      legendary: 0,
+      void: 0,
+      inconsistency: 0,
+      conflict: 0
+    };
+    
+    // Elementos del DOM
+    const mainMenu = document.getElementById('main-menu');
+    const gameContainer = document.getElementById('game-container');
+    const marketContainer = document.getElementById('market-container');
+    const gameArea = document.getElementById('game-area');
+    const fishingRod = document.getElementById('fishing-rod');
+    const fishingLine = document.getElementById('fishing-line');
+    const castBtn = document.getElementById('cast-btn');
+    const reelBtn = document.getElementById('reel-btn');
+    const infoPanel = document.getElementById('info-panel');
+    const gameMessage = document.getElementById('game-message');
+    const inventoryItems = document.getElementById('inventory-items');
+    const worldTitle = document.getElementById('world-title');
+    const worldSubtitle = document.getElementById('world-subtitle');
+    const marketSell = document.getElementById('market-sell');
+    const marketBuy = document.getElementById('market-buy');
+    const brainFill = document.getElementById('brain-fill');
+    const brainLevelEl = document.getElementById('brain-level');
+    const bubblesContainer = document.getElementById('bubbles');
+    
+    // Inicializar burbujas
+    for (let i = 0; i < 20; i++) {
+      const bubble = document.createElement('div');
+      bubble.className = 'bubble';
+      bubble.style.left = `${Math.random() * 100}%`;
+      bubble.style.width = `${Math.random() * 10 + 5}px`;
+      bubble.style.height = bubble.style.width;
+      bubble.style.animationDelay = `${Math.random() * 8}s`;
+      bubblesContainer.appendChild(bubble);
+    }
+    
+    // Iniciar el juego
+    function startGame(worldNum) {
+      currentWorld = worldNum;
+      gameActive = true;
+      mainMenu.style.display = 'none';
+      gameContainer.style.display = 'block';
+      
+      // Actualizar título del mundo
+      const worldNames = ["", "Bahía del Principiante", "Mar de Reglamentos", "Arrecife de Interpretaciones", "Abismo de Vacíos Legales"];
+      const worldDifficulty = ["", "Fácil", "Medio", "Difícil", "Muy Difícil"];
+      
+      worldTitle.textContent = `Mundo: ${worldNames[currentWorld]}`;
+      worldSubtitle.textContent = `Nivel de dificultad: ${worldDifficulty[currentWorld]}`;
+      
+      // Resetear el estado del juego
+      isFishing = false;
+      castBtn.disabled = false;
+      reelBtn.disabled = true;
+      gameMessage.textContent = `¡Bienvenido a ${worldNames[currentWorld]}! Lanza tu caña para empezar a pescar.`;
+      
+      updateStats();
+      updateMoneyDisplay();
+      updateBrainMeter();
+    }
+    
+    // Volver al menú principal
+    function returnToMainMenu() {
+      gameActive = false;
+      gameContainer.style.display = 'none';
+      mainMenu.style.display = 'flex';
+    }
+    
+    // Mostrar/ocultar mercado
+    function showMarket() {
+      updateMarketContent();
+      mainMenu.style.display = 'none';
+      gameContainer.style.display = 'none';
+      marketContainer.style.display = 'block';
+      document.getElementById('market-money').textContent = money;
+    }
+    
+    function hideMarket() {
+      marketContainer.style.display = 'none';
+      if (gameActive) {
+        gameContainer.style.display = 'block';
+      } else {
+        mainMenu.style.display = 'flex';
+      }
+    }
+    
+    // Cambiar pestaña en el mercado
+    function switchMarketTab(tab) {
+      const tabs = document.querySelectorAll('.market-tab');
+      tabs.forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      if (tab === 'sell') {
+        marketSell.style.display = 'grid';
+        marketBuy.style.display = 'none';
+      } else {
+        marketSell.style.display = 'none';
+        marketBuy.style.display = 'grid';
+      }
+    }
+    
+    // Actualizar contenido del mercado
+    function updateMarketContent() {
+      // Actualizar la sección de venta
+      if (inventory.length === 0) {
+        marketSell.innerHTML = '<div class="market-empty">Aún no tienes peces para vender. ¡Ve a pescar primero!</div>';
+      } else {
+        marketSell.innerHTML = '';
+        inventory.forEach(item => {
+          const article = articles.find(a => a.id === item.id);
+          if (!article) return;
+          
+          const marketCard = document.createElement('div');
+          marketCard.className = 'market-card';
+          
+          marketCard.innerHTML = `
+            <div class="market-card-img">
+              <div class="market-fish">
+                <div class="fish-body" style="background-color: ${getFishColor(article.rarity)};"></div>
+                <div class="fish-tail" style="border-color: transparent transparent transparent ${getFishColor(article.rarity)};"></div>
+                <div class="fish-eye"></div>
+              </div>
+            </div>
+            <div class="market-card-content">
+              <div class="market-card-title">${article.name}</div>
+              <div class="market-card-desc">${article.title}</div>
+              <div class="market-card-footer">
+                <div class="market-card-price">$${article.value}</div>
+                <button class="market-card-button" onclick="sellFish(${article.id})">Vender</button>
+              </div>
+            </div>
+          `;
+          
+          marketSell.appendChild(marketCard);
+        });
+      }
+    }
+    
+    // Obtener color del pez según rareza
+    function getFishColor(rarity) {
+      switch(rarity) {
+        case 'common': return 'silver';
+        case 'uncommon': return '#4fc3f7';
+        case 'rare': return '#9c27b0';
+        case 'legendary': return '#ffd700';
+        case 'void': return '#f44336';
+        case 'inconsistency': return '#ff9800';
+        case 'conflict': return '#673ab7';
+        default: return 'silver';
+      }
+    }
+    
+    // Vender un pez
+    function sellFish(id) {
+      const index = inventory.findIndex(item => item.id === id);
+      if (index === -1) return;
+      
+      const article = articles.find(a => a.id === id);
+      if (!article) return;
+      
+      // Aumentar dinero
+      money += article.value;
+      
+      // Quitar del inventario
+      inventory.splice(index, 1);
+      
+      // Actualizar visuales
+      updateMoneyDisplay();
+      updateMarketContent();
+      document.getElementById('market-money').textContent = money;
+      
+      // Mensaje
+      alert(`¡Has vendido "${article.name}" por $${article.value}!`);
+    }
+    
+    // Comprar un ítem en el mercado
+    function buyItem(itemId) {
+      let itemPrice = 0;
+      let itemName = '';
+      let xpBonus = 0;
+      
+      switch(itemId) {
+        case 'conflict_map':
+          itemPrice = 500;
+          itemName = 'Mapa de Conflictos de Interés';
+          xpBonus = 100;
+          break;
+        case 'void_guide':
+          itemPrice = 750;
+          itemName = 'Guía de Vacíos Legales';
+          xpBonus = 150;
+          break;
+        case 'inconsistency_analysis':
+          itemPrice = 600;
+          itemName = 'Análisis de Incongruencias';
+          xpBonus = 120;
+          break;
+        default:
+          return;
+      }
+      
+      // Verificar si tiene suficiente dinero
+      if (money < itemPrice) {
+        alert('No tienes suficiente dinero para comprar este ítem.');
+        return;
+      }
+      
+      // Confirmar compra
+      if (confirm(`¿Estás seguro de que deseas comprar "${itemName}" por $${itemPrice}?`)) {
+        // Reducir dinero
+        money -= itemPrice;
+        
+        // Otorgar beneficio (XP)
+        addBrainXP(xpBonus);
+        
+        // Actualizar visuales
+        updateMoneyDisplay();
+        document.getElementById('market-money').textContent = money;
+        
+        // Mostrar mensaje
+        alert(`¡Has comprado "${itemName}"! Tu conocimiento ha aumentado significativamente.`);
+        
+        // Mostrar información especial basada en la compra
+        let specialInfo = '';
+        
+        switch(itemId) {
+          case 'conflict_map':
+            specialInfo = `
+              <div class="article-title">Mapa de Conflictos de Interés</div>
+              <div class="article-content">
+                Este mapa revela cómo ciertos aspectos de la Ley de Pesca favorecen a grandes empresas pesqueras.
+                <ul>
+                  <li>El sistema de licencias transables perpetúa el control de compañías que ya tenían autorizaciones.</li>
+                  <li>La distribución de cuotas por 20 años (2013-2032) beneficia desproporcionadamente al sector industrial.</li>
+                  <li>Algunos legisladores que aprobaron la ley fueron posteriormente investigados por recibir financiamiento de empresas pesqueras.</li>
+                </ul>
+              </div>
+              <div class="article-insight">
+                <strong>Ahora sabes:</strong> Los artículos transitorios de la ley contienen muchas de las disposiciones más problemáticas. Préstales especial atención.
+              </div>
+            `;
+            break;
+            
+          case 'void_guide':
+            specialInfo = `
+              <div class="article-title">Guía de Vacíos Legales</div>
+              <div class="article-content">
+                Esta guía identifica los principales vacíos en la Ley de Pesca que pueden ser aprovechados:
+                <ul>
+                  <li>Artículos sin sanciones específicas (como el Art. 8° sobre lavado de redes)</li>
+                  <li>Provisiones sin plazos definidos para implementación</li>
+                  <li>Términos ambiguos como "pesca accidental" o "enfoque ecosistémico" sin definiciones operativas</li>
+                  <li>Reglamentos mencionados pero nunca dictados</li>
+                </ul>
+              </div>
+              <div class="article-insight">
+                <strong>Consejo valioso:</strong> Cuando un artículo menciona que "un reglamento establecerá...", averigua si ese reglamento fue realmente dictado. Si no existe, hay un vacío legal importante.
+              </div>
+            `;
+            break;
+            
+          case 'inconsistency_analysis':
+            specialInfo = `
+              <div class="article-title">Análisis de Incongruencias</div>
+              <div class="article-content">
+                Este análisis revela contradicciones importantes en la Ley de Pesca:
+                <ul>
+                  <li>La ley establece principios de sustentabilidad mientras permite cuotas fijas por 20 años sin revisión ecológica</li>
+                  <li>Proclama transparencia pero algunos procesos importantes ocurren sin participación pública</li>
+                  <li>Propone equidad de género pero no establece mecanismos concretos para garantizarla</li>
+                  <li>Trata de manera desigual a pescadores artesanales según su región</li>
+                </ul>
+              </div>
+              <div class="article-insight">
+                <strong>Estrategia clave:</strong> Cuando dos disposiciones de la ley sean contradictorias, puedes invocar la que más te favorezca argumentando que es una interpretación válida.
+              </div>
+            `;
+            break;
+        }
+        
+        // Mostrar la información especial
+        infoPanel.innerHTML = specialInfo;
+      }
+    }
+    
+    // Actualizar displays de dinero
+    function updateMoneyDisplay() {
+      document.getElementById('money-amount').textContent = money;
+      document.getElementById('market-money').textContent = money;
+    }
+    
+    // Actualizar medidor de cerebro
+    function updateBrainMeter() {
+      const percentage = (brainXP / brainXPNeeded) * 100;
+      brainFill.style.width = `${percentage}%`;
+      brainLevelEl.textContent = `Nivel ${brainLevel}`;
+    }
+    
+    // Aumentar XP del cerebro
+    function addBrainXP(amount) {
+      brainXP += amount;
+      
+      // Subir de nivel si alcanza el XP necesario
+      if (brainXP >= brainXPNeeded) {
+        brainLevel++;
+        brainXP = brainXP - brainXPNeeded;
+        brainXPNeeded = Math.floor(brainXPNeeded * 1.5); // Cada nivel requiere más XP
+        gameMessage.textContent = `¡Felicidades! Tu conocimiento ha subido al Nivel ${brainLevel}`;
+      }
+      
+      updateBrainMeter();
+    }
+    
+    // Evento de lanzar caña
+    castBtn.addEventListener('click', () => {
+      if (isFishing) return;
+      
+      isFishing = true;
+      castBtn.disabled = true;
+      reelBtn.disabled = false;
+      gameMessage.textContent = 'Caña lanzada... ¡Espera a que piquen los peces!';
+      
+      // Animar caña
+      fishingRod.style.transform = 'rotate(-30deg)';
+      setTimeout(() => {
+        fishingRod.style.transform = 'rotate(0deg)';
+        fishingLine.style.height = '250px';
+        
+        // Generar peces
+        generateFishes();
+      }, 500);
+    });
+    
+    // Evento de recoger caña
+    reelBtn.addEventListener('click', () => {
+      if (!isFishing) return;
+      
+      isFishing = false;
+      reelBtn.disabled = true;
+      
+      // Animar recogida
+      fishingLine.style.height = '100px';
+      
+      // Limpiar peces
+      clearFishes();
+      
+      setTimeout(() => {
+        castBtn.disabled = false;
+        gameMessage.textContent = '¡Lanza tu caña para seguir pescando!';
+      }, 1000);
+    });
+    
+    // Generar peces según el mundo actual
+    function generateFishes() {
+      clearFishes();
+      
+      // Número de peces según el nivel
+      const fishCount = Math.floor(Math.random() * 3) + 3 + currentWorld;
+      
+      // Filtrar artículos para el mundo actual
+      const worldArticles = articles.filter(a => a.world <= currentWorld);
+      
+      // Seleccionar peces aleatorios
+      for (let i = 0; i < fishCount; i++) {
+        let article;
+        
+        // Dar mayor probabilidad a los peces del mundo actual
+        const worldArticles = articles.filter(a => a.world === currentWorld);
+        const otherArticles = articles.filter(a => a.world < currentWorld);
+        
+        if (Math.random() < 0.7 && worldArticles.length > 0) {
+          // 70% de probabilidad de peces del mundo actual
+          article = worldArticles[Math.floor(Math.random() * worldArticles.length)];
+        } else if (otherArticles.length > 0) {
+          // 30% de probabilidad de peces de mundos anteriores
+          article = otherArticles[Math.floor(Math.random() * otherArticles.length)];
+        } else {
+          // Si no hay otros mundos, usar del actual
+          article = worldArticles[Math.floor(Math.random() * worldArticles.length)];
+        }
+        
+        // Crear el pez
+        createFish(article);
+      }
+      
+      // Iniciar animación
+      animateFishes();
+    }
+    
+    // Crear un pez individual
+    function createFish(article) {
+      const fish = document.createElement('div');
+      fish.className = `fish ${article.rarity}`;
+      fish.dataset.articleId = article.id;
+      
+      // Posicionar aleatoriamente
+      const fishLeft = Math.random() * (gameArea.offsetWidth - 60) + 10;
+      const fishTop = Math.random() * (gameArea.offsetHeight - 120) + 80;
+      fish.style.left = `${fishLeft}px`;
+      fish.style.top = `${fishTop}px`;
+      
+      // Dirección aleatoria
+      const isSwimmingRight = Math.random() > 0.5;
+      if (!isSwimmingRight) {
+        fish.style.transform = 'scaleX(-1)';
+      }
+      
+      // Crear estructura del pez
+      const fishShape = document.createElement('div');
+      fishShape.className = 'fish-shape';
+      
+      const fishBody = document.createElement('div');
+      fishBody.className = 'fish-body';
+      
+      const fishTail = document.createElement('div');
+      fishTail.className = 'fish-tail';
+      
+      const fishEye = document.createElement('div');
+      fishEye.className = 'fish-eye';
+      
+      const fishName = document.createElement('div');
+      fishName.className = 'fish-name';
+      fishName.textContent = article.name;
+      
+      fishShape.appendChild(fishBody);
+      fishShape.appendChild(fishTail);
+      fishShape.appendChild(fishEye);
+      fish.appendChild(fishShape);
+      fish.appendChild(fishName);
+      
+      // Evento click para pescar
+      fish.addEventListener('click', () => catchFish(fish, article));
+      
+      gameArea.appendChild(fish);
+      
+      // Guardar referencia para animación
+      fishesInWater.push({
+        element: fish,
+        speed: Math.random() * 2 + 0.5,
+        direction: isSwimmingRight ? 1 : -1,
+        originalLeft: fishLeft
+      });
+    }
+    
+    // Animar peces
+    function animateFishes() {
+      if (!isFishing) return;
+      
+      fishesInWater.forEach(fish => {
+        const currentLeft = parseFloat(fish.element.style.left);
+        let newLeft = currentLeft + fish.speed * fish.direction;
+        
+        // Cambiar dirección si llega a los bordes
+        if (newLeft > gameArea.offsetWidth - 50 || newLeft < 0) {
+          fish.direction *= -1;
+          fish.element.style.transform = fish.direction > 0 ? '' : 'scaleX(-1)';
+          newLeft = currentLeft + fish.speed * fish.direction;
+        }
+        
+        fish.element.style.left = `${newLeft}px`;
+      });
+      
+      requestAnimationFrame(animateFishes);
+    }
+    
+    // Pescar un pez
+    function catchFish(fishElement, article) {
+      if (!isFishing) return;
+      
+      // Animar pez siendo pescado
+      fishElement.style.animation = 'fish-caught 1s forwards';
+      
+      // Actualizar estadísticas
+      stats[article.rarity]++;
+      
+      // Agregar al inventario
+      inventory.push({
+        id: article.id,
+        date: new Date()
+      });
+      
+      // Agregar XP al cerebro
+      addBrainXP(article.xpValue);
+      
+      // Mostrar información
+      displayArticleInfo(article);
+      
+      // Actualizar UI
+      updateStats();
+      updateInventoryDisplay();
+      
+      // Mensaje
+      gameMessage.textContent = `¡Has pescado "${article.name}"! ${getQualityMessage(article.rarity)}`;
+      
+      // Remover el pez después de la animación
+      setTimeout(() => {
+        if (gameArea.contains(fishElement)) {
+          gameArea.removeChild(fishElement);
+        }
+        fishesInWater = fishesInWater.filter(f => f.element !== fishElement);
+      }, 1000);
+    }
+    
+    // Obtener mensaje según calidad del pez
+    function getQualityMessage(rarity) {
+      switch(rarity) {
+        case 'common': return 'Es un artículo básico.';
+        case 'uncommon': return '¡Un buen hallazgo con detalles interesantes!';
+        case 'rare': return '¡Una interpretación valiosa de la ley!';
+        case 'legendary': return '¡WOW! ¡Un artículo con aspectos muy complejos!';
+        case 'void': return '¡INCREÍBLE! ¡Has descubierto un vacío legal importante!';
+        case 'inconsistency': return '¡GRAN HALLAZGO! ¡Una incongruencia en la ley!';
+        case 'conflict': return '¡EXTRAORDINARIO! ¡Un conflicto de interés revelado!';
+        default: return '';
+      }
+    }
+    
+    // Mostrar información del artículo
+    function displayArticleInfo(article) {
+      let html = `
+        <div class="article-title">${article.title}</div>
+        <div class="article-content">${article.content}</div>
+        <div class="article-analysis">${article.analysis}</div>
+      `;
+      
+      // Agregar consejos o insights si existen
+      if (article.tip) {
+        html += `<div class="article-tips"><strong>Consejo:</strong> ${article.tip}</div>`;
+      }
+      
+      if (article.insight) {
+        html += `<div class="article-insight"><strong>Información valiosa:</strong> ${article.insight}</div>`;
+      }
+      
+      infoPanel.innerHTML = html;
+    }
+    
+    // Actualizar inventario
+    function updateInventoryDisplay() {
+      if (inventory.length === 0) {
+        inventoryItems.innerHTML = '<div class="inventory-empty">Tu inventario está vacío...</div>';
+        return;
+      }
+      
+      inventoryItems.innerHTML = '';
+      
+      // Mostrar los 5 más recientes
+      const recentItems = [...inventory].sort((a, b) => b.date - a.date).slice(0, 5);
+      
+      recentItems.forEach(item => {
+        const article = articles.find(a => a.id === item.id);
+        if (!article) return;
+        
+        const inventoryItem = document.createElement('div');
+        inventoryItem.className = 'inventory-item';
+        inventoryItem.innerHTML = `
+          <div class="inventory-icon" style="background-color: ${getFishColor(article.rarity)};"></div>
+          <div>${article.name}</div>
+        `;
+        
+        // Mostrar información al hacer clic
+        inventoryItem.addEventListener('click', () => {
+          displayArticleInfo(article);
+        });
+        
+        inventoryItems.appendChild(inventoryItem);
+      });
+    }
+    
+    // Actualizar estadísticas
+    function updateStats() {
+      document.getElementById('caught-count').textContent = `${inventory.length}/${articles.length}`;
+      document.getElementById('common-count').textContent = stats.common;
+      document.getElementById('uncommon-count').textContent = stats.uncommon;
+      document.getElementById('rare-count').textContent = stats.rare;
+      document.getElementById('legendary-count').textContent = stats.legendary;
+      
+      // Especiales (suma de vacíos, incongruencias y conflictos)
+      const specialCount = stats.void + stats.inconsistency + stats.conflict;
+      document.getElementById('special-count').textContent = specialCount;
+    }
+    
+    // Limpiar peces
+    function clearFishes() {
+      fishesInWater.forEach(fish => {
+        if (fish.element.parentNode === gameArea) {
+          gameArea.removeChild(fish.element);
+        }
+      });
+      fishesInWater = [];
+    }
+    
+    // Inicialización
+    updateStats();
+    updateMoneyDisplay();
+    updateBrainMeter();
+  </script>
+</body>
+</html>
+```

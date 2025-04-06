@@ -1,0 +1,47 @@
+// Workflow de Análisis Espacial de Zooplancton
+digraph {
+	rankdir=TB
+	node [fillcolor=white shape=box style="rounded,filled"]
+	A1 [label="Datos de Muestreo
+Zooplancton" fillcolor="#e6f3ff"]
+	A2 [label="Coordenadas
+Geográficas" fillcolor="#e6f3ff"]
+	A3 [label="Profundidades
+[0m, 50m, 100m, 200m]" fillcolor="#e6f3ff"]
+	B1 [label="Generación de
+Estaciones de Muestreo" fillcolor="#fff2cc"]
+	B2 [label="Creación de
+Máscara Terrestre" fillcolor="#fff2cc"]
+	subgraph cluster_0 {
+		fillcolor="#e8f4ea" label="Interpolación Espacial Mejorada" style=rounded
+		C1 [label="RBF Inicial
+(epsilon=0.005, smooth=0.1)" fillcolor="#d5e8d4"]
+		C2 [label="Suavizado Gaussiano
+Multi-escala" fillcolor="#d5e8d4"]
+		C3 [label="Spline Bicúbico
+(s=0.001)" fillcolor="#d5e8d4"]
+		C4 [label="Suavizado Final
+(sigma=0.6)" fillcolor="#d5e8d4"]
+		C1 -> C2
+		C2 -> C3
+		C3 -> C4
+	}
+	D1 [label="Mapas de Diversidad
+por Profundidad" fillcolor="#ffe6cc"]
+	D2 [label="Gradiente
+Vertical" fillcolor="#ffe6cc"]
+	D3 [label="Perfil
+Vertical" fillcolor="#ffe6cc"]
+	D4 [label="Resumen
+Estadístico" fillcolor="#ffe6cc"]
+	A1 -> B1
+	A2 -> B1
+	A2 -> B2
+	A3 -> B1
+	B1 -> C1
+	B2 -> D1
+	C4 -> D1
+	C4 -> D2
+	C4 -> D3
+	C4 -> D4
+}
